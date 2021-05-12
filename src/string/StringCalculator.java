@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 public class StringCalculator {
 
     public List<String> parse(String input) {
-
         List<String> results = new ArrayList<>();
         results.add(",|;");
         results.add(input);
@@ -24,18 +23,16 @@ public class StringCalculator {
     }
 
     public List<Integer> parseToInt(List<String> inputs) {
-
-        String[] tmp = inputs.get(1).split(inputs.get(0));
+        String[] data = inputs.get(1).split(inputs.get(0));
         List<Integer> numbers = new ArrayList<>();
 
-        for (int i=0; i<tmp.length; i++) {
-            int number = Integer.parseInt(tmp[i].trim());
+        for (String value : data) {
+            int number = Integer.parseInt(value.trim());
             if (number < 0) throw new RuntimeException("음수를 입력할 수 없습니다");
             numbers.add(number);
         }
         return numbers;
     }
-
 
     public int add(String input) {
         List<String> inputs = parse(input);
