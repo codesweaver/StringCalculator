@@ -12,7 +12,10 @@ class StringCalculatorTest {
     @Test
     void stringSeperate() {
         String s = "1,2;3";
-        String[] inputs = s.split("[,;]");
+        String[] inputs = s.split(",|;");
+        for (String input: inputs) {
+            System.out.println(input);
+        }
         assertEquals(3, inputs.length);
     }
 
