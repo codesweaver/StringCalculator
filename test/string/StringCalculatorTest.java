@@ -1,40 +1,63 @@
 package string;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StringCalculatorTest {
 
-    @Test
-    void stringSeperate() {
-        String s = "1,2;3";
-        String[] inputs = s.split("[,;]");
-        assertEquals(3, inputs.length);
+    StringCalculator cal;
+
+    @BeforeEach
+    void setup() {
+        cal = new StringCalculator();
     }
 
     @Test
-    void rexExpr() {
-        String s = "//;\n1;2;3";
-        Pattern pattern = Pattern.compile("//(.)\\n(.*)");
-        Matcher matcher = pattern.matcher(s);
-
-        String seperator = "[,;]";
-        if (matcher.find()) {
-            seperator = matcher.group();
-            System.out.println(seperator);
-            // seperator = seperator.replace("//", "");
-        }
-        // System.out.println(seperator);
+    void parse() {
+        String input = "//@\n1@2@3@4";
+        List<String> inputs = cal.parse(input);
+        assertEquals(inputs.get(0), "@");
+        assertEquals(inputs.get(1), "1@2@3@4");
     }
 
     @Test
-    void add() {
-        StringCalculator cal = new StringCalculator();
-        assertEquals(6, cal.add("1,2;3"));
-        assertEquals(6, cal.add("//;\n1;2;3"));
+    void parseToInt() {
+        List<String> inputs = new ArrayList<>();
+        inputs.add(",|;");
+        inputs.add("1,2;3");
+
+        List<Integer> numbers = cal.parseToInt(inputs);
+        assertEquals(numbers.size(), 3);
+        assertEquals(numbers.get(numbers.size()-1), 3);
+
+        inputs = new ArrayList<>();
+        inputs.add("@");
+        inputs.add("1@2@3@4");
+
+        numbers = cal.parseToInt(inputs);
+        assertEquals(numbers.size(), 4);
+        assertEquals(numbers.get(numbers.size()-1), 4);
+    }
+
+    @Test
+    void sum() {
+        List<Integer> numbers = new ArrayList<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        numbers.add(5);
+        numbers.add(6);
+        numbers.add(7);
+        numbers.add(8);
+        numbers.add(9);
+        numbers.add(10);
+        int result = cal.sum(numbers);
+        assertEquals(result, 55);
     }
 }
