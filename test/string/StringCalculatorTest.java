@@ -19,45 +19,56 @@ class StringCalculatorTest {
 
     @Test
     void parse() {
+        //when
         String input = "//@\n1@2@3@4";
+
+        //given
         List<String> inputs = cal.parse(input);
+
+        //then
         assertEquals(inputs.get(0), "@");
         assertEquals(inputs.get(1), "1@2@3@4");
     }
 
     @Test
     void parseToInt() {
+        //when
         List<String> inputs = new ArrayList<>();
         inputs.add(",|;");
         inputs.add("1,2;3");
 
+        //given
         List<Integer> numbers = cal.parseToInt(inputs);
+
+        //then
         assertEquals(numbers.size(), 3);
         assertEquals(numbers.get(numbers.size()-1), 3);
 
+        //when
         inputs = new ArrayList<>();
         inputs.add("@");
         inputs.add("1@2@3@4");
 
+        //given
         numbers = cal.parseToInt(inputs);
+
+        //then
         assertEquals(numbers.size(), 4);
         assertEquals(numbers.get(numbers.size()-1), 4);
     }
 
     @Test
     void sum() {
+        //when
         List<Integer> numbers = new ArrayList<>();
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(3);
-        numbers.add(4);
-        numbers.add(5);
-        numbers.add(6);
-        numbers.add(7);
-        numbers.add(8);
-        numbers.add(9);
-        numbers.add(10);
+        for (int i = 0; i < 10; i++) {
+            numbers.add(i+1);
+        }
+
+        //given
         int result = cal.sum(numbers);
+
+        //then
         assertEquals(result, 55);
     }
 }

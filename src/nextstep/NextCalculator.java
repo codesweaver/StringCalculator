@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NextCalculator {
+
     public int add(String text) {
         if (isBlank(text)) {
             return 0;
